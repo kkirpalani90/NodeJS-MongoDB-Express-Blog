@@ -168,8 +168,8 @@ main {
 /* Search Bar */
 
 .search-bar {
-  /* visibility: hidden;
-  transform: translateY(-100px); */
+  visibility: hidden;
+  transform: translateY(-100px);
   background-color: var(--primary-clr);
   padding: 4px 0;
   position: absolute;
