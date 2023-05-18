@@ -268,10 +268,15 @@ main {
   margin-block: 18px;
 }
 
+.articles--ul a span:first-child {
+  font-weight: 600;
+}
+
 .articles--date {
   color: var(--secondary-clr-dark);
   width: 260px;
   display: inline-block;
+  font-size: var(--fs-base);
 }
 
 .pagination {
