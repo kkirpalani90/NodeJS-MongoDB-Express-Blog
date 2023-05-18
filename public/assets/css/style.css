@@ -64,6 +64,10 @@ textarea {
   cursor: pointer;
 }
 
+.btn-logout {
+  cursor: pointer;
+}
+
 .btn-delete {
   padding: 10px 1rem;
   background-color: var(--accent-clr);
