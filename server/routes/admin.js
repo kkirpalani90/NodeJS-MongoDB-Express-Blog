@@ -70,7 +70,60 @@ router.post("/admin", async (req, res) => {
 // description: router function to _GET Redirect to Admin Dashboard
 
 router.get("/dashboard", authMiddleware, async (req, res) => {
-  res.render("admin/dashboard");
+  try {
+    const locals = {
+      title: "Admin Dashboard",
+      description: "Simple blog created with node js",
+    };
+
+    const data = await Post.find();
+    res.render("admin/dashboard", {
+      locals,
+      data,
+      layout: adminLayout,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// description: router function to _GET create a new post
+
+router.get("/add-post", authMiddleware, async (req, res) => {
+  try {
+    const locals = {
+      title: "Create New Post",
+      description: "Simple blog created with node js",
+    };
+
+    const data = await Post.find();
+    res.render("admin/add-post", {
+      locals,
+      data,
+      layout: adminLayout,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// description: router function to _POST create a new post
+
+router.post("/add-post", authMiddleware, async (req, res) => {
+  try {
+    console.log(req.body);
+
+    try {
+      const newPost = new Post({
+        title: req.body.title,
+        body: req.body.body,
+      });
+    } catch (error) {}
+
+    res.redirect("/dashboard");
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 // description: router function to _POST Submit Admin Registration Information
