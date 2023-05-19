@@ -111,14 +111,19 @@ router.get("/add-post", authMiddleware, async (req, res) => {
 
 router.post("/add-post", authMiddleware, async (req, res) => {
   try {
-    console.log(req.body);
+    // console.log(req.body);
 
     try {
       const newPost = new Post({
         title: req.body.title,
-        body: req.body.body,
+        content: req.body.content,
       });
-    } catch (error) {}
+
+      await Post.create(newPost);
+      res.redirect("/dashboard");
+    } catch (error) {
+      console.log(error);
+    }
 
     res.redirect("/dashboard");
   } catch (error) {

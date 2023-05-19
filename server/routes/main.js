@@ -73,7 +73,7 @@ router.post("/search", async (req, res) => {
     const data = await Post.find({
       $or: [
         { title: { $regex: new RegExp(searchNoSpecialChar, "i") } },
-        { body: { $regex: new RegExp(searchNoSpecialChar, "i") } },
+        { content: { $regex: new RegExp(searchNoSpecialChar, "i") } },
       ],
     });
     res.render("search", {
@@ -91,27 +91,27 @@ module.exports = router;
 //   Post.insertMany([
 //     {
 //       title: "Building a Blog",
-//       body: "This is the body text",
+//       content: "This is the body text",
 //     },
 //     {
 //       title: "Testing a Blog",
-//       body: "This is the body text",
+//       content: "This is the body text",
 //     },
 //     {
 //       title: "Reading a Blog",
-//       body: "This is the body text",
+//       content: "This is the body text",
 //     },
 //     {
 //       title: "Building a Site",
-//       body: "This is the body text",
+//       content: "This is the body text",
 //     },
 //     {
 //       title: "Testing a Site",
-//       body: "This is the body text",
+//       content: "This is the body text",
 //     },
 //     {
 //       title: "Developing a Site",
-//       body: "This is the body text",
+//       content: "This is the body text",
 //     },
 //   ]);
 // }
