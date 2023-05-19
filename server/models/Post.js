@@ -10,6 +10,18 @@ const PostSchema = new Schema({
     type: String,
     required: true,
   },
+  author: {
+    type: String,
+    required: false,
+  },
+  imageName: {
+    type: String,
+    required: true,
+  },
+  imagePath: {
+    type: String,
+    required: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

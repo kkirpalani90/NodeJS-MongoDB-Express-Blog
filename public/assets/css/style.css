@@ -225,7 +225,7 @@ main {
   margin: 5px 0 40px 0;
 }
 
-/* Article List Section */
+/* Articles List Section */
 
 .articles--heading {
   margin-top: 4rem;
@@ -295,6 +295,22 @@ main {
   color: var(--primary-clr);
 }
 
+/* Single Article Section */
+
+.article--heading {
+  line-height: 1.3;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.article--content {
+  text-indent: 50px;
+  margin-top: 2rem;
+  line-height: 1.6;
+  max-width: 85ch;
+  margin-inline: auto;
+}
+
 /* Admin Dashboard */
 
 .admin-title {
@@ -332,6 +348,14 @@ footer {
 
 /* Responsive Media Queries */
 
+@media screen and (min-width: 31.25rem) {
+  /* Single Article Page */
+  .article--img {
+    width: 50%;
+    margin-top: 2rem;
+    margin-inline: auto;
+  }
+}
 @media screen and (min-width: 48rem) {
   /* Header */
   .header {
@@ -349,4 +373,8 @@ footer {
   .articles--date {
     text-align: right;
   }
+  /* 
+  .article--img {
+    max-width: 10rem;
+  } */
 }

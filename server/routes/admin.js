@@ -1,5 +1,9 @@
 const express = require("express");
 const router = express.Router();
+const expressHandler = require("express-async-handler");
+const upload = require("../../controllers/uploadImage");
+const path = require("path");
+
 const Post = require("../models/Post");
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
@@ -109,25 +113,71 @@ router.get("/add-post", authMiddleware, async (req, res) => {
 
 // description: router function to _POST create a new post
 
-router.post("/add-post", authMiddleware, async (req, res) => {
+// router.post(
+//   "/add-post",
+//   authMiddleware,
+//   upload.single("image"),
+//   async (req, res) => {
+//     try {
+//       // console.log(req.body);
+
+//       try {
+//         if (!req.file) {
+//           return res.status(500).json({ error: "Please upload file" });
+//         }
+
+//         const imageFile = Post({
+//           // imageName: req.file.imageName,
+//           imagePath: req.file.imagePath,
+//         });
+
+//         await imageFile.save();
+
+//         const newPost = new Post({
+//           title: req.body.title,
+//           content: req.body.content,
+//           // imageName: req.file.imageName,
+//           imagePath: req.file.imagePath,
+//         });
+
+//         await Post.create(newPost);
+//         res.status(200).json(newPost);
+//         // res.redirect("/dashboard");
+//       } catch (error) {
+//         console.log(error);
+//       }
+
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   }
+// );
+
+router.post("/add-post", upload.single("imagePath"), async (req, res) => {
   try {
-    // console.log(req.body);
-
-    try {
-      const newPost = new Post({
-        title: req.body.title,
-        content: req.body.content,
-      });
-
-      await Post.create(newPost);
-      res.redirect("/dashboard");
-    } catch (error) {
-      console.log(error);
+    if (!req.file) {
+      return res.status(500).json({ error: "Please upload a file" });
     }
+    const fileExtension = path.extname(req.file.originalname); // Get the file extension
+    // Use the req.file object to access information about the uploaded file
+    const newPost = new Post({
+      title: req.body.title,
+      content: req.body.content,
+      imageName: req.file.filename, // Use the file name provided by multer
+      imagePath: req.file.path, // Use the file path provided by multer
+      imageExtension: fileExtension, // Add the file extension to the Post object
+    });
 
+    // Save the new post to the database
+    await newPost.save();
+
+    // res.status(200).json(newPost);
     res.redirect("/dashboard");
   } catch (error) {
     console.log(error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while creating the post" });
   }
 });
 

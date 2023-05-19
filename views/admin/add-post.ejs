@@ -3,9 +3,11 @@
   <h2>Add New Post</h2>
 </div>
 
-<form action="/add-post" method="post">
+<form action="/add-post" method="post" enctype="multipart/form-data">
   <label for="title">Title</label>
   <input type="text" name="title" placeholder="Post Title" />
+  <label for="imagePath">Post Banner</label>
+  <input type="file" accept="image/png, image/jpeg" name="imagePath" />
   <label for="content">Content</label>
   <textarea
     style="resize: none; aspect-ratio: 1 / 0.35"

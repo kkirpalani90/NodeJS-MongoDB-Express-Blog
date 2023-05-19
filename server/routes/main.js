@@ -58,6 +58,12 @@ router.get("/about", (req, res) => {
   res.render("about");
 });
 
+// description: router function to _GET to contact page
+
+router.get("/contact", (req, res) => {
+  res.render("contact");
+});
+
 // description: router function to _POST a search term
 
 router.post("/search", async (req, res) => {
