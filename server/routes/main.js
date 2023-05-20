@@ -28,6 +28,7 @@ router.get("", async (req, res) => {
       data,
       current: page,
       nextPage: hasNextPage ? nextPage : null,
+      currentRoute: "/",
     });
   } catch (error) {
     console.log(error);
@@ -46,7 +47,7 @@ router.get("/post/:id", async (req, res) => {
       description: "Simple Blog created with NodeJs",
     };
 
-    res.render("post", { locals, data });
+    res.render("post", { locals, data, currentRoute: `/post/${slug}` });
   } catch (error) {
     console.log(error);
   }
@@ -55,13 +56,17 @@ router.get("/post/:id", async (req, res) => {
 // description: router function to _GET to about page
 
 router.get("/about", (req, res) => {
-  res.render("about");
+  res.render("about", {
+    currentRoute: "/about",
+  });
 });
 
 // description: router function to _GET to contact page
 
 router.get("/contact", (req, res) => {
-  res.render("contact");
+  res.render("contact", {
+    currentRoute: "/contact",
+  });
 });
 
 // description: router function to _POST a search term
@@ -85,6 +90,7 @@ router.post("/search", async (req, res) => {
     res.render("search", {
       data,
       locals,
+      currentRoute: "/",
     });
   } catch (error) {
     console.log(error);

@@ -278,4 +278,23 @@ router.post("/register", async (req, res) => {
   }
 });
 
+// description: router function to _DELETE remove a post
+
+router.delete("/delete-post/:id", authMiddleware, async (req, res) => {
+  try {
+    await Post.deleteOne({ _id: req.params.id });
+    res.redirect("/dashboard");
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// description: router function to _GET logout of the site
+
+router.get("/logout", (req, res) => {
+  res.clearCookie("token");
+  // res.json({ message: "Logout Successful" });
+  res.redirect("/");
+});
+
 module.exports = router;
