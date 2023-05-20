@@ -111,6 +111,82 @@ router.get("/add-post", authMiddleware, async (req, res) => {
   }
 });
 
+// description: router function to _GET edit a post
+
+router.get("/edit-post/:id", authMiddleware, async (req, res) => {
+  try {
+    const locals = {
+      title: "Edit Post ",
+      description: "Simple blog created with node js",
+    };
+    const data = await Post.findOne({ _id: req.params.id });
+
+    res.render("admin/edit-post", {
+      locals,
+      data,
+      layout: adminLayout,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// description: router function to _PUT edit a post
+
+// router.put("/edit-post/:id", authMiddleware,  upload.single("imagePath"), async (req, res) => {
+//   try {
+//     await Post.findByIdAndUpdate(req.params.id, {
+//       title: req.body.title,
+//       content: req.body.content,
+//       imageName: req.file.filename, // Use the file name provided by multer
+//       imagePath: req.file.path, // Use the file path provided by multer
+//       imageExtension: fileExtension, // Add the file extension to the Post object
+//       updatedAt: Date.now(),
+//     });
+
+//     // console.log("New title: " + req.body.title);
+
+//     res.redirect(`/edit-post/${req.params.id}`);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// });
+
+router.put(
+  "/edit-post/:id",
+  authMiddleware,
+  upload.single("imagePath"),
+  async (req, res) => {
+    try {
+      const existingPost = await Post.findById(req.params.id); // Retrieve the existing post
+
+      let imageName = existingPost.imageName; // Retain the existing imageName
+      let imagePath = existingPost.imagePath; // Retain the existing imagePath
+      let imageExtension = existingPost.imageExtension; // Retain the existing imageExtension
+
+      if (req.file) {
+        // If a new file was uploaded, update the imageName, imagePath, and imageExtension
+        imageName = req.file.filename;
+        imagePath = req.file.path;
+        imageExtension = path.extname(req.file.originalname);
+      }
+
+      await Post.findByIdAndUpdate(req.params.id, {
+        title: req.body.title,
+        content: req.body.content,
+        imageName,
+        imagePath,
+        imageExtension,
+        updatedAt: Date.now(),
+      });
+
+      res.redirect(`/edit-post/${req.params.id}`);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 // description: router function to _POST create a new post
 
 // router.post(

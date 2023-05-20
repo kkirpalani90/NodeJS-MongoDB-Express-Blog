@@ -64,6 +64,12 @@ textarea {
   cursor: pointer;
 }
 
+.btn:hover,
+.btn:focus,
+.btn:focus-within {
+  --primary-clr: #474747;
+}
+
 .btn-logout {
   cursor: pointer;
 }
@@ -71,6 +77,12 @@ textarea {
 .btn-delete {
   padding: 10px 1rem;
   background-color: var(--accent-clr);
+}
+
+.btn-delete:hover,
+.btn-delete:focus,
+.btn-delete:focus-within {
+  --accent-clr: rgb(229, 0, 0);
 }
 
 img {
@@ -223,6 +235,29 @@ main {
 .author--body {
   font-size: var(--fs-md);
   margin: 5px 0 40px 0;
+}
+
+/* Form Component */
+form label {
+  font-weight: 800;
+  font-size: 1.2em;
+  display: block;
+}
+
+form label::after {
+  content: ":";
+}
+
+form img {
+  object-fit: cover;
+}
+
+._img-container {
+  width: min(100%, 25rem);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  /* background-color: red; */
 }
 
 /* Articles List Section */
